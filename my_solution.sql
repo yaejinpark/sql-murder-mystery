@@ -38,3 +38,14 @@ WHERE person_id = 16371 OR person_id = 14887;
 -- The man got into a car with a plate that included "H42W".
 
 -- 16371 (Annabel): I saw the murder happen, and I recognized the killer from my gym when I was working out last week on January the 9th.
+
+-- Suspect Gym Info: Membership status gold, number includes 48Z, last checked in 20180109
+-- Suspect Car Info: Includes H42W
+
+-- Part 4: Connect interview details and interviewees with 
+
+SELECT m.name, m.person_id, m.membership_status, get_fit_now_check_in.check_in_date
+FROM get_fit_now_member m
+JOIN get_fit_now_check_in on m.id = get_fit_now_check_in.membership_id
+WHERE m.membership_status = 'gold' AND 
+		get_fit_now_check_in.check_in_date = 20180109
