@@ -42,10 +42,18 @@ WHERE person_id = 16371 OR person_id = 14887;
 -- Suspect Gym Info: Membership status gold, number includes 48Z, last checked in 20180109
 -- Suspect Car Info: Includes H42W
 
--- Part 4: Connect interview details and interviewees with 
+-- Part 4: Find the suspects based on given information
 
-SELECT m.name, m.person_id, m.membership_status, get_fit_now_check_in.check_in_date
+SELECT m.name, m.person_id, get_fit_now_check_in.check_in_date, person.license_id, drivers_license.plate_number
 FROM get_fit_now_member m
 JOIN get_fit_now_check_in on m.id = get_fit_now_check_in.membership_id
+JOIN person on m.name = person.name
+JOIN drivers_license on person.license_id = drivers_license.id
 WHERE m.membership_status = 'gold' AND 
-		get_fit_now_check_in.check_in_date = 20180109
+		get_fit_now_check_in.check_in_date = 20180109 AND
+		drivers_license.plate_number LIKE '%H42W%'
+
+-- Name: Jeremy Bowers
+-- Person ID: 67318
+-- License ID: 423327
+-- Plate Number: 0H42W2
