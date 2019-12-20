@@ -1,5 +1,6 @@
 
 -- TODO: Obviously these are not the optimal answers. Improve them.
+-- TEST
 
 -- Part 1: Find witnesses
 
