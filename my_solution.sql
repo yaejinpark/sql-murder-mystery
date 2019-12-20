@@ -57,3 +57,30 @@ WHERE m.membership_status = 'gold' AND
 -- Person ID: 67318
 -- License ID: 423327
 -- Plate Number: 0H42W2
+
+-------------------------Extra Challenge-------------------------------
+-- If you think you're up for a challenge, try querying the interview transcript of the murderer to find the real villian behind this crime. 
+-- If you feel especially confident in your SQL skills, try to complete this final step with no more than 2 queries.
+
+
+-- Part 1: Find the criminal's transcript
+SELECT *
+FROM interview
+WHERE person_id = 67318
+
+-- I was hired by a woman with a lot of money. 
+-- I don't know her name but I know she's around 5'5" (65") or 5'7" (67"). 
+-- She has red hair and she drives a Tesla Model S. 
+-- I know that she attended the SQL Symphony Concert 3 times in December 2017.
+
+-- Part 2: Find the mastermind
+SELECT p.name, COUNT(*) as event_attendance_frequency
+FROM facebook_event_checkin fb
+JOIN person as p on fb.person_id = p.id
+JOIN drivers_license as dl on p.license_id = dl.id
+WHERE dl.hair_color = 'red'
+	AND dl.gender='female'
+	AND car_make = 'Tesla'
+	AND fb.date BETWEEN 20171201 AND 20180101
+GROUP BY p.name
+HAVING COUNT(*) >= 3
